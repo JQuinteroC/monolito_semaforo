@@ -30,11 +30,11 @@ public class Modelo {
 
     public void registrarTemperaturaAmbiente() {
         // informe al sistema que la temperatura ambiente cambió
-        float v = getVentana().getSliTemp().getValue();
-        getSistema().setTemperaturaActual(v);
+//        float v = getVentana().getSliTemp().getValue();
+//        getSistema().setTemperaturaActual(v);
         
-        getVentana().getPbrTemperatura().setValue((int) getSistema().getTemperaturaActual());
-        getVentana().getLblTemperatura().setText("" + getSistema().getTemperaturaActual());
+//        getVentana().getPbrTemperatura().setValue((int) getSistema().getTemperaturaActual());
+//        getVentana().getLblTemperatura().setText("" + getSistema().getTemperaturaActual());
     }
     
     
