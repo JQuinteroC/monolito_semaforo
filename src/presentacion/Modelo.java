@@ -1,22 +1,23 @@
 package presentacion;
 
-import logica.Termometro;
+import logica.Semaforo;
 
 
 public class Modelo {
 
-    private Termometro sistema;
+    private Semaforo sistema;
     private Vista ventana;
     
     public void iniciar() {
         // codigo de inicio de app
-        getVentana().setSize(600, 400);
+        getVentana().setSize(300, 250);
+        getVentana().setLocationRelativeTo(null);
         getVentana().setVisible(true);
     }
 
-    public Termometro getSistema() {
+    public Semaforo getSistema() {
         if(sistema == null){
-            sistema = new Termometro();
+            sistema = new Semaforo();
         }
         return sistema;
     }    
