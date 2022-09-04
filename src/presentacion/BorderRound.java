@@ -14,8 +14,8 @@ public class BorderRound extends AbstractBorder {
 
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         Graphics2D g2d = (Graphics2D) g;
-        Color oldColor = c.getParent().getBackground();
-        g2d.setColor(oldColor);
+//        Color oldColor = c.getParent().getBackground();
+        g2d.setColor(Color.black);
         int offs = 1;
         int size = offs + offs;
         float arc = 0.2F * offs;
