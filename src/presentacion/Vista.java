@@ -8,18 +8,28 @@ public class Vista extends javax.swing.JFrame {
     private Modelo modelo;
     private Control control;
 
+    private JButton btnCambio;
+    private JLabelRound led1;
+    private JLabelRound led2;
+    private JLabelRound led3;
+
     public Vista(Modelo m) {
         modelo = m;
         init();
+        cargarEventos();
+    }
+
+    private void cargarEventos() {
+        btnCambio.addActionListener(getControl());
     }
 
     public void init() {
 
         Label semaforo = new Label();
-        JLabelRound led1 = new JLabelRound();// Rojo
-        JLabelRound led2 = new JLabelRound();// Amarillo
-        JLabelRound led3 = new JLabelRound();// Verde
-        JButton btnCambio = new JButton("Cambiar estado");
+        led1 = new JLabelRound();// Rojo
+        led2 = new JLabelRound();// Amarillo
+        led3 = new JLabelRound();// Verde
+        btnCambio = new JButton("Cambiar estado");
 
         Container c = getContentPane();
         c.setLayout(null);
@@ -64,5 +74,17 @@ public class Vista extends javax.swing.JFrame {
             control = new Control(this);
         }
         return control;
+    }
+
+    public JLabelRound getLed1() {
+        return led1;
+    }
+
+    public JLabelRound getLed2() {
+        return led2;
+    }
+
+    public JLabelRound getLed3() {
+        return led3;
     }
 }
