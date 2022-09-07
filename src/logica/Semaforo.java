@@ -1,6 +1,10 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Semaforo {
+
+    private ArrayList<Led> leds;
     private int estado;
     // 0 - Rojo
     // 1 - Amarrillo
@@ -17,5 +21,14 @@ public class Semaforo {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public ArrayList getLeds() {
+        return leds;
+    }
+
+    public void setLeds(ArrayList leds) {
+        this.leds = leds;
+    }
+    
     
 }
