@@ -6,9 +6,8 @@ public class Semaforo {
 
     private ArrayList<Led> leds;
     private int estado;
-    // 0 - Rojo
-    // 1 - Amarrillo
-    // 2 - Verde
+    // 0 - Funcional
+    // 1 - Dañado
 
     public Semaforo() {
         estado = 0;
@@ -29,6 +28,5 @@ public class Semaforo {
     public void setLeds(ArrayList leds) {
         this.leds = leds;
     }
-    
-    
+
 }

@@ -9,13 +9,10 @@ public class Launcher {
     public Launcher() {
         miApp = new Modelo(); // composición
         miApp.iniciar();
-        
-        //miApp2 = new Modelo();
-        //miApp2.iniciar();
-    }    
-    
-    public static void main(String[] args) {        
+    }
+
+    public static void main(String[] args) {
         Launcher app = new Launcher();
     }
-    
+
 }
