@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Vista extends javax.swing.JFrame {
 
-    private Modelo modelo;
+    private final Modelo modelo;
     private Control control;
 
     private JButton btnRojo;
@@ -16,12 +16,16 @@ public class Vista extends javax.swing.JFrame {
     private JLabelRound led1Gp1;
     private JLabelRound led2Gp1;
     private JLabelRound led3Gp1;
+    
 
     private JLabelRound led1Gp2;
     private JLabelRound led2Gp2;
     private JLabelRound led3Gp2;
 
     private JComboBox selectorSemaforo;
+    
+    private ImageIcon imgOn;
+    private ImageIcon imgOff;
 
     public Vista(Modelo m) {
         modelo = m;
@@ -40,6 +44,14 @@ public class Vista extends javax.swing.JFrame {
 
         Label fondoSemaforo1 = new Label();
         Label fondoSemaforo2 = new Label();
+        //Img
+        imgOn = new ImageIcon(new ImageIcon("resources/img/on.png")
+                                    .getImage()
+                                    .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));        
+        imgOff = new ImageIcon(new ImageIcon("resources/img/off.png")
+                                    .getImage()
+                                    .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));
+
         // Gp 1
         led1Gp1 = new JLabelRound();// Rojo
         led2Gp1 = new JLabelRound();// Amarillo
@@ -49,9 +61,9 @@ public class Vista extends javax.swing.JFrame {
         led2Gp2 = new JLabelRound();// Amarillo
         led3Gp2 = new JLabelRound();// Verde
 
-        btnRojo = new JButton("On/Off rojo");
-        btnAmarillo = new JButton("On/Off amarillo");
-        btnVerde = new JButton("On/Off verde");
+        btnRojo = new JButton("On/Off");
+        btnAmarillo = new JButton("On/Off");
+        btnVerde = new JButton("On/Off");
 
         Container ventana = getContentPane();
         ventana.setLayout(null);
@@ -99,15 +111,29 @@ public class Vista extends javax.swing.JFrame {
 
         // Botón cambio de estado verde
         ventana.add(btnVerde);
-        btnVerde.setBounds(80, 170, 150, 30);
+        btnVerde.setBounds(80, 180, 150, 30);
+        btnVerde.setIcon(imgOff);
+        btnVerde.setFocusable(false);
+        btnVerde.setContentAreaFilled(false);
+        btnVerde.setBorder(null);
 
         // Botón cambio de estado amarillo
         ventana.add(btnAmarillo);
-        btnAmarillo.setBounds(80, 110, 150, 30);
+        btnAmarillo.setBounds(80, 120, 150, 30);
+        btnAmarillo.setIcon(imgOff);
+        btnAmarillo.setIcon(imgOff);
+        btnAmarillo.setFocusable(false);
+        btnAmarillo.setContentAreaFilled(false);
+        btnAmarillo.setBorder(null);
 
         // Botón cambio de estado rojo
         ventana.add(btnRojo);
-        btnRojo.setBounds(80, 50, 150, 30);
+        btnRojo.setBounds(80, 60, 150, 30);       
+        btnRojo.setIcon(imgOff);
+        btnRojo.setIcon(imgOff);
+        btnRojo.setFocusable(false);
+        btnRojo.setContentAreaFilled(false);
+        btnRojo.setBorder(null);
 
         selectorSemaforo = new JComboBox();
         selectorSemaforo.addItem("Grupo 1");
@@ -169,4 +195,13 @@ public class Vista extends javax.swing.JFrame {
         return selectorSemaforo;
     }
 
+    public ImageIcon getImgOn() {
+        return imgOn;
+    }
+
+    public ImageIcon getImgOff() {
+        return imgOff;
+    }
+
+    
 }

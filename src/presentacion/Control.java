@@ -28,8 +28,9 @@ public class Control implements ActionListener {
             } else {
                 modelo.setSistemaActivo(modelo.getSistema2());
             }
-
+            modelo.comprobarEstadoBotones();
         }
 
     }
+   
 }

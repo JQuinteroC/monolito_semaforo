@@ -4,6 +4,7 @@ import logica.Semaforo;
 
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import logica.Led;
 
@@ -76,9 +77,11 @@ public class Modelo {
 
         if (ledRojo.getEstado() == 0) {
             ledRojo.getLbl().setBackground(new Color(255, 0, 0));
+            ventana.getBtnRojo().setIcon(ventana.getImgOn());
             ledRojo.setEstado(1);
         } else if (ledRojo.getEstado() == 1) {
             ledRojo.getLbl().setBackground(new Color(186, 0, 0));
+            ventana.getBtnRojo().setIcon(ventana.getImgOff());
             ledRojo.setEstado(0);
         } else {
             JOptionPane.showMessageDialog(null, "El LED esta dañado");
@@ -91,9 +94,11 @@ public class Modelo {
 
         if (ledAmarillo.getEstado() == 0) {
             ledAmarillo.getLbl().setBackground(new Color(255, 255, 0));
+            ventana.getBtnAmarillo().setIcon(ventana.getImgOn());
             ledAmarillo.setEstado(1);
         } else if (ledAmarillo.getEstado() == 1) {
             ledAmarillo.getLbl().setBackground(new Color(186, 186, 0));
+            ventana.getBtnAmarillo().setIcon(ventana.getImgOff());
             ledAmarillo.setEstado(0);
         } else {
             JOptionPane.showMessageDialog(null, "El LED esta dañado");
@@ -106,14 +111,37 @@ public class Modelo {
 
         if (ledVerde.getEstado() == 0) {
             ledVerde.getLbl().setBackground(new Color(0, 204, 0));
+            ventana.getBtnVerde().setIcon(ventana.getImgOn());
             ledVerde.setEstado(1);
         } else if (ledVerde.getEstado() == 1) {
             ledVerde.getLbl().setBackground(new Color(0, 145, 0));
+            ventana.getBtnVerde().setIcon(ventana.getImgOff());
             ledVerde.setEstado(0);
         } else {
             JOptionPane.showMessageDialog(null, "El LED esta dañado");
         }
 
+    }
+
+    void comprobarEstadoBotones() {
+        ArrayList<Led> leds = sistemaActivo.getLeds();
+        
+        if(leds.get(0).getEstado() == 0)
+            ventana.getBtnRojo().setIcon(ventana.getImgOff());
+        else
+            ventana.getBtnRojo().setIcon(ventana.getImgOn());
+        
+        if(leds.get(1).getEstado() == 0)
+            ventana.getBtnAmarillo().setIcon(ventana.getImgOff());
+        else
+            ventana.getBtnAmarillo().setIcon(ventana.getImgOn());
+        
+    
+        if(leds.get(2).getEstado() == 0)
+            ventana.getBtnVerde().setIcon(ventana.getImgOff());
+        else
+            ventana.getBtnVerde().setIcon(ventana.getImgOn());
+        
     }
 
 }
