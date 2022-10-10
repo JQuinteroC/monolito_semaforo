@@ -18,9 +18,9 @@ public class Control implements ActionListener {
         if (e.getSource() == ventana.getBtnRojo()) {
 //            modelo.getTarjeta().cambioEstadoRojo();
         } else if (e.getSource() == ventana.getBtnAmarillo()) {
-            modelo.getTarjeta().cambioEstadoAmarillo();
+            //modelo.getTarjeta().cambioEstadoAmarillo();
         } else if (e.getSource() == ventana.getBtnVerde()) {
-            modelo.getTarjeta().cambioEstadoVerde();
+            //modelo.getTarjeta().cambioEstadoVerde();
         }
 
     }

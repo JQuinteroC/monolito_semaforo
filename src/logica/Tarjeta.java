@@ -18,6 +18,8 @@ public class Tarjeta {
     private final ArrayList<Semaforo> gprSemaforico2;
     private ArrayList<Semaforo> gprActivo;
     private int identificador;
+    
+    private Thread hilo;
 
     public Tarjeta(Modelo modelo) {
         this.modelo = modelo;
@@ -55,60 +57,134 @@ public class Tarjeta {
     public void cambioEstadoRojo(int estado) {
         for (Iterator<Semaforo> iterator = gprActivo.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
-            Led ledRojo = (Led) semaforoActivo.getLeds().get(0);
-
-            if (estado == 1) {
-                ledRojo.getLbl().setBackground(new Color(255, 0, 0));
-                // comunicarEstado("estado botón rojo -> 1");
-                ledRojo.setEstado(1);
-            } else if (estado == 0) {
-                ledRojo.getLbl().setBackground(new Color(186, 0, 0));
-                // comunicarEstado("estado botón rojo -> 0");
-                ledRojo.setEstado(0);
-            } else {
-                // led dañado
-                // comunicarEstado("estado botón rojo -> dañado");
-            }
+            semaforoActivo.cambioEstadoRojo(estado);
         }
     }
 
-    public void cambioEstadoAmarillo() {
+    public void cambioEstadoAmarillo(int estado) {
         for (Iterator<Semaforo> iterator = gprActivo.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
-            Led ledAmarillo = (Led) semaforoActivo.getLeds().get(1);
+            semaforoActivo.cambioEstadoAmarillo(estado);
 
-            if (ledAmarillo.getEstado() == 0) {
-                ledAmarillo.getLbl().setBackground(new Color(255, 255, 0));
-                // comunicarEstado("estado botón amarillo -> 1");
-                ledAmarillo.setEstado(1);
-            } else if (ledAmarillo.getEstado() == 1) {
-                ledAmarillo.getLbl().setBackground(new Color(186, 186, 0));
-                // comunicarEstado("estado botón amarillo -> 0");
-                ledAmarillo.setEstado(0);
-            } else {
-                // led dañado
-                // comunicarEstado("estado botón amarillo -> dañado");
-            }
         }
     }
 
-    public void cambioEstadoVerde() {
+    public void cambioEstadoVerde(int estado) {
         for (Iterator<Semaforo> iterator = gprSemaforico1.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
-            Led ledVerde = (Led) semaforoActivo.getLeds().get(2);
+            semaforoActivo.cambioEstadoVerde(estado);
+        }
+    }
 
-            if (ledVerde.getEstado() == 0) {
-                ledVerde.getLbl().setBackground(new Color(0, 204, 0));
-                // comunicarEstado("estado botón verde -> 1");
-                ledVerde.setEstado(1);
-            } else if (ledVerde.getEstado() == 1) {
-                ledVerde.getLbl().setBackground(new Color(0, 145, 0));
-                // comunicarEstado("estado botón verde -> 0");
-                ledVerde.setEstado(0);
+    public void intermitente(int accion, int primerEstado, int segundoEstado, int tercerEstado) {
+
+        for (Iterator<Semaforo> iterator = gprSemaforico1.iterator(); iterator.hasNext();) {
+            Semaforo semaforoActivo = iterator.next();
+
+            // Definir los objetos Runnable
+            Runnable runnableRojo = new Runnable() {
+                @Override
+                public void run() {
+                    int i = 0;
+                    while (true) {
+                        try {
+                            Thread.sleep(100);
+                            if (i == 0) {
+                                semaforoActivo.cambioEstadoRojo(1);
+                                System.out.println("Intermitencia Rojo: encendido");
+                                i = 1;
+                            } else {
+                                semaforoActivo.cambioEstadoRojo(0);
+                                System.out.println("Intermitencia Rojo: apagado");
+                                i = 0;
+                            }
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+
+            // Definir los objetos Runnable
+            Runnable runnableAmarillo = new Runnable() {
+                @Override
+                public void run() {
+                    int i = 0;
+                    while (true) {
+                        try {
+                            Thread.sleep(250);
+                            if (i == 0) {
+                                semaforoActivo.cambioEstadoAmarillo(1);
+                                System.out.println("Intermitencia Amarillo: encendido");
+                                i = 1;
+                            } else {
+                                semaforoActivo.cambioEstadoAmarillo(0);
+                                System.out.println("Intermitencia Amarillo: apagado");
+                                i = 0;
+                            }
+                            
+                            break;
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+
+            // Definir los objetos Runnable
+            Runnable runnableVerde = new Runnable() {
+                @Override
+                public void run() {
+                    int i = 0;
+                    while (true) {
+                        try {
+                            Thread.sleep(100);
+                            if (i == 0) {
+                                semaforoActivo.cambioEstadoAmarillo(1);
+                                System.out.println("Intermitencia Verde: encendido");
+                                i = 1;
+                            } else {
+                                semaforoActivo.cambioEstadoAmarillo(0);
+                                System.out.println("Intermitencia Verde: apagado");
+                                i = 0;
+                            }
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+
+            // Si es intermitente, definir que LED encender y apagar
+            if (accion == 1) {
+                if (primerEstado == 1) {
+
+                    hilo = new Thread(runnableRojo);
+                    hilo.start();
+                    
+                } else if (segundoEstado == 1) {
+                    
+                    hilo = new Thread(runnableAmarillo);
+                    hilo.start();
+
+                } else if (tercerEstado == 1) {
+                    
+                    hilo = new Thread(runnableVerde);
+                    hilo.start();
+
+                } else {
+                    // DO NOTHING
+                }
+
             } else {
-                // led dañado
-                // comunicarEstado("estado botón verde -> dañado");
+                
+                //hilo.stop();
+
             }
+
         }
 
     }

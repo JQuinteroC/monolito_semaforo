@@ -62,7 +62,7 @@ public class Modelo implements Runnable {
 
     public void procesarInformacion(String data) {
         // byte recibido tarjeta-|i|r|a|v|i|r|a|v|
-        String[] datos = data.split("-");
+        String[] datos = data.split(":");
 
         tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
         data = Integer.toBinaryString(Integer.parseInt(datos[1]));
@@ -76,24 +76,23 @@ public class Modelo implements Runnable {
         for (int i = 0; i < data.length(); i++) {
 
             if (i == 0) {
-                // TODO intermitente
+                tarjetaActiva.intermitente(data.charAt(i), data.charAt(i + 1), data.charAt(i + 2), data.charAt(i + 3));
             } else if (i == 1) {
                 tarjetaActiva.cambioEstadoRojo(data.charAt(i));
-
             } else if (i == 2) {
-
+                tarjetaActiva.cambioEstadoAmarillo(data.charAt(i));
             } else if (i == 3) {
-
+                tarjetaActiva.cambioEstadoVerde(data.charAt(i));
             } else if (i == 4) {
                 tarjetaActiva.changeGrupo(1);
+                tarjetaActiva.intermitente(data.charAt(i), data.charAt(i + 1), data.charAt(i + 2), data.charAt(i + 3));
             } else if (i == 5) {
-
+                tarjetaActiva.cambioEstadoRojo(data.charAt(i));
             } else if (i == 6) {
-
+                tarjetaActiva.cambioEstadoAmarillo(data.charAt(i));
             } else if (i == 7) {
-
+                tarjetaActiva.cambioEstadoVerde(data.charAt(i));
             }
-            data.charAt(i);
         }
         tarjetaActiva.changeGrupo(0);
 
