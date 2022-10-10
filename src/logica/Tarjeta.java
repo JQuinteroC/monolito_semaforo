@@ -14,6 +14,14 @@ public class Tarjeta {
 
     private Modelo modelo;
 
+    public ArrayList<Semaforo> getGprSemaforico1() {
+        return gprSemaforico1;
+    }
+
+    public ArrayList<Semaforo> getGprSemaforico2() {
+        return gprSemaforico2;
+    }
+
     private final ArrayList<Semaforo> gprSemaforico1;
     private final ArrayList<Semaforo> gprSemaforico2;
     private ArrayList<Semaforo> gprActivo;

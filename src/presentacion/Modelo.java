@@ -64,7 +64,7 @@ public class Modelo implements Runnable {
         return tarjetas.get(index);
     }
 
-    public void procesarInformacion(String data) {
+    public String procesarInformacion(String data) {
         // byte recibido tarjeta-|i|r|a|v|i|r|a|v|
         String[] datos = data.split(":");
 
@@ -107,6 +107,32 @@ public class Modelo implements Runnable {
                 tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
             }
         }
+        return calcularLedsEncendidos();
+    }
+
+    private String calcularLedsEncendidos() {
+        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
+    }
+
+    private String identificarLedsXGp(ArrayList<Semaforo> semaforosGp) {
+        int cantLedsRojos = 0;
+        int cantLedsAmarillos = 0;
+        int cantLedsVerdes = 0;
+        for(Semaforo semaforo : semaforosGp) {
+            ArrayList<Led> leds = semaforo.getLeds();
+            if (leds.get(0).getEstado() == 1)
+                cantLedsRojos++;
+            if (leds.size() < 3) {
+                if (leds.get(1).getEstado() == 1)
+                    cantLedsVerdes++;
+            } else {
+                if (leds.get(1).getEstado() == 1)
+                    cantLedsAmarillos++;
+                if (leds.get(2).getEstado() == 1)
+                    cantLedsVerdes++;
+            }
+        }
+        return cantLedsRojos + "" + cantLedsAmarillos + "" + cantLedsVerdes;
     }
 
     public void procesarConfiguracion(String confString) {
@@ -193,12 +219,28 @@ public class Modelo implements Runnable {
 //
 //    }
     public void conectar() throws IOException {
-        //establecer conexion
-        cliente = new Socket(host, puerto);
+        try {
+            // establecer conexion
+            cliente = new Socket(host, puerto);
 
-        //capturar los flujos
-        datosEntrada = new DataInputStream(cliente.getInputStream());
-        datosSalida = new DataOutputStream(cliente.getOutputStream());
+            // capturar los flujos
+            datosEntrada = new DataInputStream(cliente.getInputStream());
+            datosSalida = new DataOutputStream(cliente.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error conectando");
+            throw new RuntimeException(e);
+        }
+
+        try {
+            String conf = null;
+            // recibir configuracion
+            conf = datosEntrada.readUTF();
+            System.out.println("Recibio conf");
+            procesarConfiguracion(conf);
+        } catch (IOException e) {
+            System.out.println("Error en la comunicacion de configuracion.");
+            throw new RuntimeException(e);
+        }
 
         // COMUNICACION
         hiloLectura.start();
@@ -217,30 +259,30 @@ public class Modelo implements Runnable {
                 // lee lo que envía el server
                 System.out.println("Esperando mensaje...");
                 // Se queda acá, hasta que el servidor envíe algo
-                conf = datosEntrada.readUTF();
-                procesarConfiguracion(conf);
+                data = datosEntrada.readUTF();
+                datosSalida.writeUTF(procesarInformacion(data));
 
-                for (;;) {
-                    data = datosEntrada.readUTF();
-
-                    procesarInformacion(data);
-
-                    if (data == "-1") {
-                        lecturaActiva = false;
-                        break;
-                    }
+                if (data == "-1") {
+                    lecturaActiva = false;
+                    break;
                 }
+
             } catch (IOException ex) {
                 System.out.println("error en la comunicación");
             }
         }
 
+        desconectar();
+    }
+
+    private void desconectar() {
         // Finalizar
         try {
             datosEntrada.close();
             datosSalida.close();
             cliente.close();
         } catch (IOException e) {
+            System.out.println("Error desconectando.");
             throw new RuntimeException(e);
         }
     }
