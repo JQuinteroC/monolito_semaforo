@@ -21,7 +21,7 @@ public class Semaforo {
         this.estado = estado;
     }
 
-    public ArrayList getLeds() {
+    public ArrayList<Led> getLeds() {
         return leds;
     }
 
