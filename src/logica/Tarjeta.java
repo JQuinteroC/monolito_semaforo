@@ -18,8 +18,6 @@ public class Tarjeta {
     private final ArrayList<Semaforo> gprSemaforico2;
     private ArrayList<Semaforo> gprActivo;
     private int identificador;
-    
-    private Thread hilo;
 
     public Tarjeta(Modelo modelo) {
         this.modelo = modelo;
@@ -78,7 +76,7 @@ public class Tarjeta {
     public void intermitente(int accion, int primerEstado, int segundoEstado, int tercerEstado) {
         System.out.println("Accion:" + accion);
 
-        for (Iterator<Semaforo> iterator = gprSemaforico1.iterator(); iterator.hasNext();) {
+        for (Iterator<Semaforo> iterator = gprActivo.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
 
             // Definir los objetos Runnable
@@ -123,8 +121,6 @@ public class Tarjeta {
                                 System.out.println("Intermitencia Amarillo: apagado");
                                 i = 0;
                             }
-                            
-                            break;
 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -162,29 +158,33 @@ public class Tarjeta {
             if (accion == 1) {
                 System.out.println("Intermitente");
                 if (primerEstado == 1) {
-                    System.out.println("Rojo");
 
-                    hilo = new Thread(runnableRojo);
-                    hilo.start();
+                    semaforoActivo.setHilo(new Thread(runnableRojo));
+                    semaforoActivo.getHilo().start();
+                    
+                    System.out.println("Rojo - Hilo:" + semaforoActivo.getHilo().getId());
+                    
                     
                 } else if (segundoEstado == 1) {
-                    System.out.println("Amarillo");
-                    hilo = new Thread(runnableAmarillo);
-                    hilo.start();
+                    
+                    semaforoActivo.setHilo(new Thread(runnableAmarillo));
+                    semaforoActivo.getHilo().start();
+                    System.out.println("Amarillo - Hilo:" + semaforoActivo.getHilo().getId());
+                    
 
                 } else if (tercerEstado == 1) {
-                    System.out.println("Verde");
-                    hilo = new Thread(runnableVerde);
-                    hilo.start();
+                    semaforoActivo.setHilo(new Thread(runnableVerde));
+                    semaforoActivo.getHilo().start();
+                    System.out.println("Verde - Hilo:" + semaforoActivo.getHilo().getId());
 
                 } else {
                     // DO NOTHING
                 }
 
             } else {
+                semaforoActivo.getHilo().stop();
+                System.out.println("No es intermitente - Hilo: " + semaforoActivo.getHilo().getId());
                 
-                System.out.println("No es intermitente");
-                hilo.stop();
 
             }
 

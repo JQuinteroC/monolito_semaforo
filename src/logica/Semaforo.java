@@ -8,6 +8,7 @@ public class Semaforo {
 
     ArrayList<Led> leds;
     private int estado;
+    private Thread hilo;
     // 0 - Funcional
     // 1 - Dañado
 
@@ -30,6 +31,19 @@ public class Semaforo {
     public void setLeds(ArrayList leds) {
         this.leds = leds;
     }
+
+    public Thread getHilo() {
+        if (hilo == null){
+            hilo = new Thread();
+        }
+        return hilo;
+    }
+
+    public void setHilo(Thread hilo) {
+        this.hilo = hilo;
+    }
+    
+    
 
     public void cambioEstadoRojo(int estado) {
         if (estado == 1) {
