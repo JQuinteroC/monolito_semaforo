@@ -445,6 +445,7 @@ public class Vista extends javax.swing.JFrame {
         selectorSemaforo.setBounds(60, 500, 300, 30);
         ventana.add(selectorSemaforo);
 
+        semaforos = new ArrayList<>();
         semaforos.add(lblSemaforo1);
         semaforos.add(lblSemaforo2);
         semaforos.add(lblSemaforo3);
@@ -453,6 +454,7 @@ public class Vista extends javax.swing.JFrame {
         semaforos.add(lblSemaforo7);
         semaforos.add(lblSemaforo8);
 
+        semaforosPeatonales = new ArrayList<>();
         semaforosPeatonales.add(lblSemaforoPeatonal1);
         semaforosPeatonales.add(lblSemaforoPeatonal2);
         ventana.setVisible(true);
