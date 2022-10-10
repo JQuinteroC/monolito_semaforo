@@ -27,6 +27,8 @@ public class Led {
         return estado;
     }
 
-    public void setEstado(int estado) {this.estado = estado;}
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
 
 }
