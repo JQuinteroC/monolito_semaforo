@@ -89,7 +89,10 @@ public class Modelo implements Runnable {
             System.out.println(data.charAt(i));
 
             if (i == 0) {
-                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
+                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
+                                           Character.getNumericValue(data.charAt(i + 1)),
+                                           Character.getNumericValue(data.charAt(i + 2)),
+                                           Character.getNumericValue(data.charAt(i + 3)));
             } else if (i == 1) {
                 tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 2) {
@@ -111,7 +114,7 @@ public class Modelo implements Runnable {
     }
 
     private String calcularLedsEncendidos() {
-        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
+        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + ":" + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
     }
 
     private String identificarLedsXGp(ArrayList<Semaforo> semaforosGp) {
@@ -132,7 +135,7 @@ public class Modelo implements Runnable {
                     cantLedsVerdes++;
             }
         }
-        return cantLedsRojos + "" + cantLedsAmarillos + "" + cantLedsVerdes;
+        return cantLedsRojos + "-" + cantLedsAmarillos + "-" + cantLedsVerdes;
     }
 
     public String procesarConfiguracion(String confString) {
