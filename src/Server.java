@@ -29,7 +29,7 @@ public class Server {
                 // Alguien se conectó
                 datosEntrada = new DataInputStream(cliente.getInputStream());
                 datosSalida = new DataOutputStream(cliente.getOutputStream());
-                datosSalida.writeUTF("11-10");
+                datosSalida.writeUTF("11-11");
                 datosSalida.writeUTF("1:10100100");
                 String lectura = datosEntrada.readUTF();
                 System.out.println("El server recibe:" + lectura);
