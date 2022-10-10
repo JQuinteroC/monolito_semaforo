@@ -69,6 +69,7 @@ public class Modelo implements Runnable {
         String[] datos = data.split(":");
 
         tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
+        tarjetaActiva.changeGrupo(0);
         //data = Integer.toBinaryString(Integer.parseInt(datos[1]));
         data = datos[1];
         // String[] datos = data.split(";");
@@ -146,8 +147,8 @@ public class Modelo implements Runnable {
                 gprSemaforico[0] = new SemaforoPeatonal();
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
+                leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(1), 0));
 
                 gprSemaforico[0].setLeds(leds1);
                 indexPeatonal++;
@@ -168,10 +169,10 @@ public class Modelo implements Runnable {
                 gprSemaforico[1] = new SemaforoPeatonal();
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
+                leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(1), 0));
 
-                gprSemaforico[0].setLeds(leds1);
+                gprSemaforico[1].setLeds(leds1);
                 indexPeatonal++;
             } else { // Semaforo
                 gprSemaforico[1] = new Semaforo();

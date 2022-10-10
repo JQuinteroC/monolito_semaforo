@@ -75,7 +75,7 @@ public class Tarjeta {
     }
 
     public void cambioEstadoVerde(int estado) {
-        for (Iterator<Semaforo> iterator = gprSemaforico1.iterator(); iterator.hasNext();) {
+        for (Iterator<Semaforo> iterator = gprActivo.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
             semaforoActivo.cambioEstadoVerde(estado);
         }
@@ -94,7 +94,7 @@ public class Tarjeta {
                     int i = 0;
                     while (true) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(250);
                             if (i == 0) {
                                 semaforoActivo.cambioEstadoRojo(1);
                                 System.out.println("Intermitencia Rojo: encendido");
