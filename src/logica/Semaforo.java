@@ -37,7 +37,7 @@ public class Semaforo {
             // comunicarEstado("estado botón rojo -> 1");
             leds.get(0).setEstado(1);
         } else if (estado == 0) {
-            leds.get(0).getLbl().setBackground(new Color(186, 0, 0));
+            leds.get(0).getLbl().setBackground(new Color(100, 0, 0));
             // comunicarEstado("estado botón rojo -> 0");
             leds.get(0).setEstado(0);
         } else {
@@ -53,7 +53,7 @@ public class Semaforo {
             // comunicarEstado("estado botón rojo -> 1");
             leds.get(1).setEstado(1);
         } else if (estado == 0) {
-            leds.get(1).getLbl().setBackground(new Color(186, 186, 0));
+            leds.get(1).getLbl().setBackground(new Color(100, 100, 0));
             // comunicarEstado("estado botón rojo -> 0");
              leds.get(1).setEstado(0);
         } else {
@@ -69,7 +69,7 @@ public class Semaforo {
             // comunicarEstado("estado botón rojo -> 1");
             leds.get(2).setEstado(1);
         } else if (estado == 0) {
-            leds.get(2).getLbl().setBackground(new Color(0, 145, 0));
+            leds.get(2).getLbl().setBackground(new Color(0, 100, 0));
             // comunicarEstado("estado botón rojo -> 0");
              leds.get(2).setEstado(0);
         } else {

@@ -77,6 +77,7 @@ public class Tarjeta {
     }
 
     public void intermitente(int accion, int primerEstado, int segundoEstado, int tercerEstado) {
+        System.out.println("Accion:" + accion);
 
         for (Iterator<Semaforo> iterator = gprSemaforico1.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
@@ -140,13 +141,13 @@ public class Tarjeta {
                     int i = 0;
                     while (true) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(250);
                             if (i == 0) {
-                                semaforoActivo.cambioEstadoAmarillo(1);
+                                semaforoActivo.cambioEstadoVerde(1);
                                 System.out.println("Intermitencia Verde: encendido");
                                 i = 1;
                             } else {
-                                semaforoActivo.cambioEstadoAmarillo(0);
+                                semaforoActivo.cambioEstadoVerde(0);
                                 System.out.println("Intermitencia Verde: apagado");
                                 i = 0;
                             }
@@ -160,18 +161,20 @@ public class Tarjeta {
 
             // Si es intermitente, definir que LED encender y apagar
             if (accion == 1) {
+                System.out.println("Intermitente");
                 if (primerEstado == 1) {
+                    System.out.println("Rojo");
 
                     hilo = new Thread(runnableRojo);
                     hilo.start();
                     
                 } else if (segundoEstado == 1) {
-                    
+                    System.out.println("Amarillo");
                     hilo = new Thread(runnableAmarillo);
                     hilo.start();
 
                 } else if (tercerEstado == 1) {
-                    
+                    System.out.println("Verde");
                     hilo = new Thread(runnableVerde);
                     hilo.start();
 
@@ -181,7 +184,8 @@ public class Tarjeta {
 
             } else {
                 
-                //hilo.stop();
+                System.out.println("No es intermitente");
+                hilo.stop();
 
             }
 

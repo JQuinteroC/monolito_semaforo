@@ -65,7 +65,8 @@ public class Modelo implements Runnable {
         String[] datos = data.split(":");
 
         tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
-        data = Integer.toBinaryString(Integer.parseInt(datos[1]));
+        //data = Integer.toBinaryString(Integer.parseInt(datos[1]));
+        data = datos[1];
 
         while (data.length() < 8) {
             data = "0" + data;
@@ -74,24 +75,25 @@ public class Modelo implements Runnable {
 
         // todo cambiar estado de leds
         for (int i = 0; i < data.length(); i++) {
+            System.out.println(data.charAt(i));
 
             if (i == 0) {
-                tarjetaActiva.intermitente(data.charAt(i), data.charAt(i + 1), data.charAt(i + 2), data.charAt(i + 3));
+                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
             } else if (i == 1) {
-                tarjetaActiva.cambioEstadoRojo(data.charAt(i));
+                tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 2) {
-                tarjetaActiva.cambioEstadoAmarillo(data.charAt(i));
+                tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 3) {
-                tarjetaActiva.cambioEstadoVerde(data.charAt(i));
+                tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
             } else if (i == 4) {
                 tarjetaActiva.changeGrupo(1);
-                tarjetaActiva.intermitente(data.charAt(i), data.charAt(i + 1), data.charAt(i + 2), data.charAt(i + 3));
+                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
             } else if (i == 5) {
-                tarjetaActiva.cambioEstadoRojo(data.charAt(i));
+                tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 6) {
-                tarjetaActiva.cambioEstadoAmarillo(data.charAt(i));
+                tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 7) {
-                tarjetaActiva.cambioEstadoVerde(data.charAt(i));
+                tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
             }
         }
         tarjetaActiva.changeGrupo(0);
