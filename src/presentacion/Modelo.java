@@ -2,14 +2,12 @@ package presentacion;
 
 import logica.Semaforo;
 
-import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.CharacterIterator;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
+import logica.Led;
 import logica.SemaforoPeatonal;
 import logica.Tarjeta;
 
@@ -103,36 +101,56 @@ public class Modelo implements Runnable {
 
     public void procesarConfiguracion(String confString) {
         String[] conf = confString.split("-");
+        int index = 0;
+        int indexPeatonal = 0;
         for (int i = 0; i < conf.length; i++) {
             String confaux = conf[i];
             final Semaforo gprSemaforico[] = new Semaforo[2];
             if (confaux.charAt(0) == '0') { // Semaforo peatonal
                 gprSemaforico[0] = new SemaforoPeatonal();
+
+                ArrayList<Led> leds1 = new ArrayList<Led>();
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
+
+                gprSemaforico[0].setLeds(leds1);
+                indexPeatonal++;
             } else { // Semaforo
                 gprSemaforico[0] = new Semaforo();
+
+                ArrayList<Led> leds1 = new ArrayList<Led>();
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(1), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(2), 0));
+
+                gprSemaforico[0].setLeds(leds1);
+                index++;
             }
 
             /// TODO AGREGAR LEDS 
             if (confaux.charAt(1) == '0') { // Semaforo peatonal
                 gprSemaforico[1] = new SemaforoPeatonal();
+
+                ArrayList<Led> leds1 = new ArrayList<Led>();
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
+
+                gprSemaforico[0].setLeds(leds1);
+                indexPeatonal++;
             } else { // Semaforo
                 gprSemaforico[1] = new Semaforo();
+
+                ArrayList<Led> leds1 = new ArrayList<Led>();
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(1), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(index).get(2), 0));
+
+                gprSemaforico[0].setLeds(leds1);
+                index++;
             }
 
             AgregarSemaforo(i, gprSemaforico);
         }
-//        ArrayList<Led> leds1 = new ArrayList<Led>();
-//        leds1.add(new Led(getVentana().getLed1(), 0));
-//        leds1.add(new Led(getVentana().getLed2(), 0));
-//        leds1.add(new Led(getVentana().getLed3(), 0));
-//
-//        ArrayList<Led> leds2 = new ArrayList<Led>();
-//        leds2.add(new Led(getVentana().getLed4(), 0));
-//        leds2.add(new Led(getVentana().getLed5(), 0));
-//        leds2.add(new Led(getVentana().getLed6(), 0));
-//
-//        sistema1.setLeds(leds1);
-//        sistema2.setLeds(leds2);
     }
 
     public void AgregarSemaforo(int index, Semaforo[] gprSemaforico) {

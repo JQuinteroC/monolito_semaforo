@@ -16,13 +16,12 @@ public class Control implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ventana.getBtnRojo()) {
-            modelo.getTarjeta().cambioEstadoRojo();
+//            modelo.getTarjeta().cambioEstadoRojo();
         } else if (e.getSource() == ventana.getBtnAmarillo()) {
             modelo.getTarjeta().cambioEstadoAmarillo();
         } else if (e.getSource() == ventana.getBtnVerde()) {
             modelo.getTarjeta().cambioEstadoVerde();
         }
-
 
     }
 

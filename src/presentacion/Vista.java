@@ -9,7 +9,9 @@ public class Vista extends javax.swing.JFrame {
 
     private final Modelo modelo;
     private Control control;
-    
+    private ArrayList<ArrayList<JLabel>> semaforos;
+    private ArrayList<ArrayList<JLabel>> semaforosPeatonales;
+
     private ArrayList<JLabel> lblSemaforo1;
     private ArrayList<JLabel> lblSemaforo2;
     private ArrayList<JLabel> lblSemaforo3;
@@ -29,42 +31,42 @@ public class Vista extends javax.swing.JFrame {
     private JLabelRound led1Sm1;
     private JLabelRound led2Sm1;
     private JLabelRound led3Sm1;
-    
+
     private JLabelRound led1Sm2;
     private JLabelRound led2Sm2;
     private JLabelRound led3Sm2;
-    
+
     private JLabelRound led1Sm3;
     private JLabelRound led2Sm3;
     private JLabelRound led3Sm3;
-    
+
     private JLabelRound led1Sm4;
     private JLabelRound led2Sm4;
     private JLabelRound led3Sm4;
-    
+
     private JLabelRound led1Sm5;
     private JLabelRound led2Sm5;
     private JLabelRound led3Sm5;
-    
+
     private JLabelRound led1Sm6;
     private JLabelRound led2Sm6;
     private JLabelRound led3Sm6;
-    
+
     private JLabelRound led1Sm7;
     private JLabelRound led2Sm7;
     private JLabelRound led3Sm7;
-    
+
     private JLabelRound led1Sm8;
     private JLabelRound led2Sm8;
     private JLabelRound led3Sm8;
-    
+
     private JLabelRound led1SmP1;
     private JLabelRound led2SmP1;
     private JLabelRound led1SmP2;
     private JLabelRound led2SmP2;
 
     private JComboBox selectorSemaforo;
-    
+
     private ImageIcon imgOn;
     private ImageIcon imgOff;
     private ImageIcon imgGreenOn;
@@ -84,7 +86,7 @@ public class Vista extends javax.swing.JFrame {
         btnVerde.addActionListener(getControl());
         btnDanarLed.addActionListener(getControl());
         selectorSemaforo.addActionListener(getControl());
-        
+
     }
 
     public void init() {
@@ -92,61 +94,61 @@ public class Vista extends javax.swing.JFrame {
         Container ventana = getContentPane();
         ventana.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // Carga de Iconos
         imgOn = new ImageIcon(new ImageIcon("resources/img/on.png")
-                                    .getImage()
-                                    .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));        
+                .getImage()
+                .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));
         imgOff = new ImageIcon(new ImageIcon("resources/img/off.png")
-                                    .getImage()
-                                    .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));
+                .getImage()
+                .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING));
         imgGreenOn = new ImageIcon(new ImageIcon("resources/img/green_on.png")
-                                    .getImage()
-                                    .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
+                .getImage()
+                .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
         imgGreenOff = new ImageIcon(new ImageIcon("resources/img/green_off.png")
-                                    .getImage()
-                                    .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
+                .getImage()
+                .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
         imgRedOn = new ImageIcon(new ImageIcon("resources/img/red_on.png")
-                                    .getImage()
-                                    .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
+                .getImage()
+                .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
         imgRedOff = new ImageIcon(new ImageIcon("resources/img/red_off.png")
-                                    .getImage()
-                                    .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
+                .getImage()
+                .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));
         ImageIcon imgWarning = new ImageIcon(new ImageIcon("resources/img/warning.png")
-                                    .getImage()
-                                    .getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING));
-        
+                .getImage()
+                .getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING));
+
         // Botones
         btnRojo = new JButton("On/Off");
         btnAmarillo = new JButton("On/Off");
         btnVerde = new JButton("On/Off");
         btnDanarLed = new JButton("Dañar LED");
-        
+
         // Semaforo 1 
         lblSemaforo1 = new ArrayList<>();
-        
+
         Label fondoSemaforo1 = new Label();
         led1Sm1 = new JLabelRound();// Rojo
         led2Sm1 = new JLabelRound();// Amarillo
         led3Sm1 = new JLabelRound();// Verde
-        
+
         // LEDS Semaforo 1
         ventana.add(led1Sm1);
         led1Sm1.setBounds(10, 50, 50, 50);
         led1Sm1.setBackground(new Color(100, 0, 0));
-        
+
         ventana.add(led2Sm1);
         led2Sm1.setBounds(10, 110, 50, 50);
         led2Sm1.setBackground(new Color(100, 100, 0));
-        
+
         ventana.add(led3Sm1);
         led3Sm1.setBounds(10, 170, 50, 50);
         led3Sm1.setBackground(new Color(0, 100, 0));
-        
+
         fondoSemaforo1.setBounds(8, 48, 54, 180);
         fondoSemaforo1.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo1);
-        
+
         lblSemaforo1.add(led1Sm1);
         lblSemaforo1.add(led2Sm1);
         lblSemaforo1.add(led3Sm1);
@@ -174,7 +176,7 @@ public class Vista extends javax.swing.JFrame {
         fondoSemaforo2.setBounds(100, 48, 54, 180);
         fondoSemaforo2.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo2);
-        
+
         lblSemaforo2.add(led1Sm2);
         lblSemaforo2.add(led2Sm2);
         lblSemaforo2.add(led3Sm2);
@@ -202,11 +204,11 @@ public class Vista extends javax.swing.JFrame {
         fondoSemaforo3.setBounds(190, 48, 54, 180);
         fondoSemaforo3.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo3);
-        
+
         lblSemaforo3.add(led1Sm3);
         lblSemaforo3.add(led2Sm3);
         lblSemaforo3.add(led3Sm3);
-        
+
         // Semaforo 4
         lblSemaforo4 = new ArrayList<>();
         Label fondoSemaforo4 = new Label();
@@ -230,11 +232,11 @@ public class Vista extends javax.swing.JFrame {
         fondoSemaforo4.setBounds(280, 48, 54, 180);
         fondoSemaforo4.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo4);
-        
+
         lblSemaforo4.add(led1Sm4);
         lblSemaforo4.add(led2Sm4);
         lblSemaforo4.add(led3Sm4);
-        
+
         // Semaforo Peatonal 1
         lblSemaforoPeatonal1 = new ArrayList<>();
         Label fondoSemaforoPeatonal1 = new Label();
@@ -251,38 +253,38 @@ public class Vista extends javax.swing.JFrame {
         led2SmP1.setBounds(372, 110, 50, 50);
         led2SmP1.setBackground(new Color(100, 100, 0));
         led2SmP1.setIcon(imgGreenOff);
-        
+
         fondoSemaforoPeatonal1.setBounds(370, 48, 54, 120);
         fondoSemaforoPeatonal1.setBackground(Color.BLACK);
         ventana.add(fondoSemaforoPeatonal1);
-        
+
         lblSemaforoPeatonal1.add(led1SmP1);
         lblSemaforoPeatonal1.add(led2SmP1);
-        
+
         // Semaforo 5 
-        lblSemaforo5= new ArrayList<>();
+        lblSemaforo5 = new ArrayList<>();
         Label fondoSemaforo5 = new Label();
         led1Sm5 = new JLabelRound();// Rojo
         led2Sm5 = new JLabelRound();// Amarillo
         led3Sm5 = new JLabelRound();// Verde
-        
+
         // LEDS Semaforo 5
         ventana.add(led1Sm5);
         led1Sm5.setBounds(10, 260, 50, 50);
         led1Sm5.setBackground(new Color(100, 0, 0));
-        
+
         ventana.add(led2Sm5);
         led2Sm5.setBounds(10, 320, 50, 50);
         led2Sm5.setBackground(new Color(100, 100, 0));
-        
+
         ventana.add(led3Sm5);
         led3Sm5.setBounds(10, 380, 50, 50);
         led3Sm5.setBackground(new Color(0, 100, 0));
-        
+
         fondoSemaforo5.setBounds(8, 258, 54, 180);
         fondoSemaforo5.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo5);
-        
+
         lblSemaforo5.add(led1Sm5);
         lblSemaforo5.add(led2Sm5);
         lblSemaforo5.add(led3Sm5);
@@ -293,56 +295,56 @@ public class Vista extends javax.swing.JFrame {
         led1Sm6 = new JLabelRound();// Rojo
         led2Sm6 = new JLabelRound();// Amarillo
         led3Sm6 = new JLabelRound();// Verde
-        
+
         // LEDS Semaforo 5
         ventana.add(led1Sm6);
         led1Sm6.setBounds(102, 260, 50, 50);
         led1Sm6.setBackground(new Color(100, 0, 0));
-        
+
         ventana.add(led2Sm6);
         led2Sm6.setBounds(102, 320, 50, 50);
         led2Sm6.setBackground(new Color(100, 100, 0));
-        
+
         ventana.add(led3Sm6);
         led3Sm6.setBounds(102, 380, 50, 50);
         led3Sm6.setBackground(new Color(0, 100, 0));
-        
+
         fondoSemaforo6.setBounds(100, 258, 54, 180);
         fondoSemaforo6.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo6);
-        
+
         lblSemaforo6.add(led1Sm6);
         lblSemaforo6.add(led2Sm6);
         lblSemaforo6.add(led3Sm6);
-        
+
         // Semaforo 7
         lblSemaforo7 = new ArrayList<>();
         Label fondoSemaforo7 = new Label();
         led1Sm7 = new JLabelRound();// Rojo
         led2Sm7 = new JLabelRound();// Amarillo
         led3Sm7 = new JLabelRound();// Verde
-        
+
         // LEDS Semaforo 7
         ventana.add(led1Sm7);
         led1Sm7.setBounds(192, 260, 50, 50);
         led1Sm7.setBackground(new Color(100, 0, 0));
-        
+
         ventana.add(led2Sm7);
         led2Sm7.setBounds(192, 320, 50, 50);
         led2Sm7.setBackground(new Color(100, 100, 0));
-        
+
         ventana.add(led3Sm7);
         led3Sm7.setBounds(192, 380, 50, 50);
         led3Sm7.setBackground(new Color(0, 100, 0));
-        
+
         fondoSemaforo7.setBounds(190, 258, 54, 180);
         fondoSemaforo7.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo7);
-        
+
         lblSemaforo7.add(led1Sm7);
         lblSemaforo7.add(led2Sm7);
         lblSemaforo7.add(led3Sm7);
-        
+
         // Semaforo 8
         lblSemaforo8 = new ArrayList<>();
         Label fondoSemaforo8 = new Label();
@@ -366,11 +368,11 @@ public class Vista extends javax.swing.JFrame {
         fondoSemaforo8.setBounds(280, 258, 54, 180);
         fondoSemaforo8.setBackground(Color.BLACK);
         ventana.add(fondoSemaforo8);
-        
+
         lblSemaforo8.add(led1Sm8);
         lblSemaforo8.add(led2Sm8);
         lblSemaforo8.add(led3Sm8);
-        
+
         // Semaforo Peatonal 2
         lblSemaforoPeatonal2 = new ArrayList<>();
         Label fondoSemaforoPeatonal2 = new Label();
@@ -387,14 +389,14 @@ public class Vista extends javax.swing.JFrame {
         led2SmP2.setBounds(372, 320, 50, 50);
         led2SmP2.setBackground(new Color(100, 100, 0));
         led2SmP2.setIcon(imgGreenOff);
-        
+
         fondoSemaforoPeatonal2.setBounds(370, 258, 54, 120);
         fondoSemaforoPeatonal2.setBackground(Color.BLACK);
         ventana.add(fondoSemaforoPeatonal2);
-        
+
         lblSemaforoPeatonal2.add(led1SmP2);
         lblSemaforoPeatonal2.add(led2SmP2);
-        
+
         // Botón dañar semáforo btnDanarLed
         ventana.add(btnDanarLed);
         btnDanarLed.setBounds(60, 560, 150, 60);
@@ -402,7 +404,7 @@ public class Vista extends javax.swing.JFrame {
         btnDanarLed.setFocusable(false);
         btnDanarLed.setContentAreaFilled(false);
         btnDanarLed.setBorder(null);
-        
+
         // Botón cambio de estado verde
         ventana.add(btnVerde);
         btnVerde.setBounds(260, 620, 100, 30);
@@ -422,7 +424,7 @@ public class Vista extends javax.swing.JFrame {
 
         // Botón cambio de estado rojo
         ventana.add(btnRojo);
-        btnRojo.setBounds(260, 540, 100, 30);       
+        btnRojo.setBounds(260, 540, 100, 30);
         btnRojo.setIcon(imgOff);
         btnRojo.setIcon(imgOff);
         btnRojo.setFocusable(false);
@@ -443,6 +445,16 @@ public class Vista extends javax.swing.JFrame {
         selectorSemaforo.setBounds(60, 500, 300, 30);
         ventana.add(selectorSemaforo);
 
+        semaforos.add(lblSemaforo1);
+        semaforos.add(lblSemaforo2);
+        semaforos.add(lblSemaforo3);
+        semaforos.add(lblSemaforo4);
+        semaforos.add(lblSemaforo6);
+        semaforos.add(lblSemaforo7);
+        semaforos.add(lblSemaforo8);
+
+        semaforosPeatonales.add(lblSemaforoPeatonal1);
+        semaforosPeatonales.add(lblSemaforoPeatonal2);
         ventana.setVisible(true);
     }
 
@@ -457,46 +469,14 @@ public class Vista extends javax.swing.JFrame {
         return control;
     }
 
-    public ArrayList<JLabel> getLblSemaforo1() {
-        return lblSemaforo1;
+    public ArrayList<ArrayList<JLabel>> getSemaforos() {
+        return semaforos;
     }
 
-    public ArrayList<JLabel> getLblSemaforo2() {
-        return lblSemaforo2;
+    public ArrayList<ArrayList<JLabel>> getSemaforosPeatonales() {
+        return semaforosPeatonales;
     }
 
-    public ArrayList<JLabel> getLblSemaforo3() {
-        return lblSemaforo3;
-    }
-
-    public ArrayList<JLabel> getLblSemaforo4() {
-        return lblSemaforo4;
-    }
-
-    public ArrayList<JLabel> getLblSemaforo5() {
-        return lblSemaforo5;
-    }
-
-    public ArrayList<JLabel> getLblSemaforo6() {
-        return lblSemaforo6;
-    }
-
-    public ArrayList<JLabel> getLblSemaforo7() {
-        return lblSemaforo7;
-    }
-
-    public ArrayList<JLabel> getLblSemaforo8() {
-        return lblSemaforo8;
-    }
-    
-    public ArrayList<JLabel> getLblSemaforoPeatonal1() {
-        return lblSemaforoPeatonal1;
-    }
-
-    public ArrayList<JLabel> getLblSemaforoPeatonal2() {
-        return lblSemaforoPeatonal2;
-    }
-    
     public JButton getBtnRojo() {
         return btnRojo;
     }
@@ -512,7 +492,7 @@ public class Vista extends javax.swing.JFrame {
     public JButton getBtnDanarLed() {
         return btnDanarLed;
     }
-    
+
     public JComboBox getSelectorSemaforo() {
         return selectorSemaforo;
     }
@@ -541,5 +521,4 @@ public class Vista extends javax.swing.JFrame {
         return imgRedOff;
     }
 
-    
 }
