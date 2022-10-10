@@ -2,7 +2,6 @@ package logica;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Semaforo {
 
@@ -33,7 +32,7 @@ public class Semaforo {
     }
 
     public Thread getHilo() {
-        if (hilo == null){
+        if (hilo == null) {
             hilo = new Thread();
         }
         return hilo;
@@ -42,8 +41,6 @@ public class Semaforo {
     public void setHilo(Thread hilo) {
         this.hilo = hilo;
     }
-    
-    
 
     public void cambioEstadoRojo(int estado) {
         if (estado == 1) {
@@ -60,7 +57,7 @@ public class Semaforo {
         }
 
     }
-    
+
     public void cambioEstadoAmarillo(int estado) {
         if (estado == 1) {
             leds.get(1).getLbl().setBackground(new Color(255, 255, 0));
@@ -69,14 +66,14 @@ public class Semaforo {
         } else if (estado == 0) {
             leds.get(1).getLbl().setBackground(new Color(100, 100, 0));
             // comunicarEstado("estado botón rojo -> 0");
-             leds.get(1).setEstado(0);
+            leds.get(1).setEstado(0);
         } else {
             // led dañado
             // comunicarEstado("estado botón rojo -> dañado");
         }
 
     }
-    
+
     public void cambioEstadoVerde(int estado) {
         if (estado == 1) {
             leds.get(2).getLbl().setBackground(new Color(0, 204, 0));
@@ -85,12 +82,20 @@ public class Semaforo {
         } else if (estado == 0) {
             leds.get(2).getLbl().setBackground(new Color(0, 100, 0));
             // comunicarEstado("estado botón rojo -> 0");
-             leds.get(2).setEstado(0);
+            leds.get(2).setEstado(0);
         } else {
             // led dañado
             // comunicarEstado("estado botón rojo -> dañado");
         }
 
+    }
+
+    public void danar() {
+        for (int i = 0; i < leds.size(); i++) {
+            Led let = leds.get(i);
+            let.setEstado(2);
+        }
+        setEstado(1);
     }
 
 }

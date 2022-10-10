@@ -60,6 +60,10 @@ public class Modelo implements Runnable {
         return tarjetaActiva;
     }
 
+    public ArrayList<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
     public Tarjeta getTarjeta(int index) {
         return tarjetas.get(index);
     }
@@ -72,18 +76,17 @@ public class Modelo implements Runnable {
         tarjetaActiva.changeGrupo(0);
         //data = Integer.toBinaryString(Integer.parseInt(datos[1]));
         data = datos[1];
-        // String[] datos = data.split(";");
+        // String[] datos = data.split(":");
 
         // for (int j = 0; j < datos.length; j++) {
         //     String a = datos[j];
         //     String[] instruccion = a.split("-");
         //     tarjetaActiva = tarjetas.get(Integer.parseInt(instruccion[0]));
         //     data = Integer.toBinaryString(Integer.parseInt(instruccion[1]));
-
-            while (data.length() < 8) {
-                data = "0" + data;
-            }
-            System.out.println("Binary data: " + data);
+        while (data.length() < 8) {
+            data = "0" + data;
+        }
+        System.out.println("Binary data: " + data);
 
         // todo cambiar estado de leds
         for (int i = 0; i < data.length(); i++) {
@@ -119,18 +122,22 @@ public class Modelo implements Runnable {
         int cantLedsRojos = 0;
         int cantLedsAmarillos = 0;
         int cantLedsVerdes = 0;
-        for(Semaforo semaforo : semaforosGp) {
+        for (Semaforo semaforo : semaforosGp) {
             ArrayList<Led> leds = semaforo.getLeds();
-            if (leds.get(0).getEstado() == 1)
+            if (leds.get(0).getEstado() == 1) {
                 cantLedsRojos++;
+            }
             if (leds.size() < 3) {
-                if (leds.get(1).getEstado() == 1)
+                if (leds.get(1).getEstado() == 1) {
                     cantLedsVerdes++;
+                }
             } else {
-                if (leds.get(1).getEstado() == 1)
+                if (leds.get(1).getEstado() == 1) {
                     cantLedsAmarillos++;
-                if (leds.get(2).getEstado() == 1)
+                }
+                if (leds.get(2).getEstado() == 1) {
                     cantLedsVerdes++;
+                }
             }
         }
         return cantLedsRojos + "" + cantLedsAmarillos + "" + cantLedsVerdes;

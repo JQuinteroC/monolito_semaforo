@@ -1,8 +1,6 @@
 package logica;
 
-import java.awt.Color;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class SemaforoPeatonal extends Semaforo {
@@ -21,10 +19,10 @@ public class SemaforoPeatonal extends Semaforo {
             .getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING));;
     
     @Override
-    public void cambioEstadoAmarillo(int estado){
-        
+    public void cambioEstadoAmarillo(int estado) {
+
     }
-    
+
     @Override
     public void cambioEstadoRojo(int estado) {
         if (estado == 1) {
@@ -41,7 +39,7 @@ public class SemaforoPeatonal extends Semaforo {
         }
 
     }
-    
+
     @Override
     public void cambioEstadoVerde(int estado) {
         if (estado == 1) {

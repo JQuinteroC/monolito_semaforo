@@ -1,14 +1,9 @@
 package logica;
 
-import java.awt.Color;
 import presentacion.Modelo;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.JOptionPane;
 
 public class Tarjeta {
 
@@ -169,16 +164,14 @@ public class Tarjeta {
 
                     semaforoActivo.setHilo(new Thread(runnableRojo));
                     semaforoActivo.getHilo().start();
-                    
+
                     System.out.println("Rojo - Hilo:" + semaforoActivo.getHilo().getId());
-                    
-                    
+
                 } else if (segundoEstado == 1) {
-                    
+
                     semaforoActivo.setHilo(new Thread(runnableAmarillo));
                     semaforoActivo.getHilo().start();
                     System.out.println("Amarillo - Hilo:" + semaforoActivo.getHilo().getId());
-                    
 
                 } else if (tercerEstado == 1) {
                     semaforoActivo.setHilo(new Thread(runnableVerde));
@@ -192,7 +185,6 @@ public class Tarjeta {
             } else {
                 semaforoActivo.getHilo().stop();
                 System.out.println("No es intermitente - Hilo: " + semaforoActivo.getHilo().getId());
-                
 
             }
 

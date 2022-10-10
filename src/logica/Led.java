@@ -6,9 +6,9 @@ public class Led {
 
     private JLabel lbl;
     private int estado;
-    // 0 - Rojo
-    // 1 - Amarrillo
-    // 2 - Verde
+    // 0 - apagado
+    // 1 - encendido
+    // 2 = Dañado
 
     public Led(JLabel lbl, int estado) {
         this.lbl = lbl;
