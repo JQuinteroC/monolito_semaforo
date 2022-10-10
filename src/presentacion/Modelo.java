@@ -30,7 +30,7 @@ public class Modelo implements Runnable {
 
     public void iniciar() {
         // codigo de inicio de app
-        getVentana().setSize(445, 720);
+        getVentana().setSize(445, 630);
         getVentana().setLocationRelativeTo(null);
         getVentana().setVisible(true);
 
@@ -60,6 +60,10 @@ public class Modelo implements Runnable {
         return tarjetaActiva;
     }
 
+    public Tarjeta getTarjeta(int index) {
+        return tarjetas.get(index);
+    }
+
     public void procesarInformacion(String data) {
         // byte recibido tarjeta-|i|r|a|v|i|r|a|v|
         String[] datos = data.split(":");
@@ -67,11 +71,18 @@ public class Modelo implements Runnable {
         tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
         //data = Integer.toBinaryString(Integer.parseInt(datos[1]));
         data = datos[1];
+        // String[] datos = data.split(";");
 
-        while (data.length() < 8) {
-            data = "0" + data;
-        }
-        System.out.println("Binary data: " + data);
+        // for (int j = 0; j < datos.length; j++) {
+        //     String a = datos[j];
+        //     String[] instruccion = a.split("-");
+        //     tarjetaActiva = tarjetas.get(Integer.parseInt(instruccion[0]));
+        //     data = Integer.toBinaryString(Integer.parseInt(instruccion[1]));
+
+            while (data.length() < 8) {
+                data = "0" + data;
+            }
+            System.out.println("Binary data: " + data);
 
         // todo cambiar estado de leds
         for (int i = 0; i < data.length(); i++) {
@@ -96,8 +107,6 @@ public class Modelo implements Runnable {
                 tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
             }
         }
-        tarjetaActiva.changeGrupo(0);
-
     }
 
     public void procesarConfiguracion(String confString) {
@@ -146,7 +155,7 @@ public class Modelo implements Runnable {
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(1), 0));
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(2), 0));
 
-                gprSemaforico[0].setLeds(leds1);
+                gprSemaforico[1].setLeds(leds1);
                 index++;
             }
 

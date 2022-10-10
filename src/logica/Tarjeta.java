@@ -41,13 +41,12 @@ public class Tarjeta {
     }
 
     public void setNewGrupo(Semaforo[] gprSemaforico) {
-        if (gprSemaforico1.isEmpty()) {
-            for (int i = 0; i < gprSemaforico.length; i++) {
+        for (int i = 0; i < gprSemaforico.length; i++) {
+            if (gprSemaforico1.isEmpty()) {
                 Semaforo semaforo = gprSemaforico[i];
                 gprSemaforico1.add(semaforo);
-            }
-        } else if (gprSemaforico2.isEmpty()) {
-            for (int i = 0; i < gprSemaforico.length; i++) {
+
+            } else if (gprSemaforico2.isEmpty()) {
                 Semaforo semaforo = gprSemaforico[i];
                 gprSemaforico2.add(semaforo);
             }

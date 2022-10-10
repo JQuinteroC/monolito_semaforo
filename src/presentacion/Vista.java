@@ -23,9 +23,6 @@ public class Vista extends javax.swing.JFrame {
     private ArrayList<JLabel> lblSemaforoPeatonal1;
     private ArrayList<JLabel> lblSemaforoPeatonal2;
 
-    private JButton btnRojo;
-    private JButton btnAmarillo;
-    private JButton btnVerde;
     private JButton btnDanarLed;
 
     private JLabelRound led1Sm1;
@@ -81,12 +78,8 @@ public class Vista extends javax.swing.JFrame {
     }
 
     private void cargarEventos() {
-        btnRojo.addActionListener(getControl());
-        btnAmarillo.addActionListener(getControl());
-        btnVerde.addActionListener(getControl());
         btnDanarLed.addActionListener(getControl());
         selectorSemaforo.addActionListener(getControl());
-
     }
 
     public void init() {
@@ -119,9 +112,6 @@ public class Vista extends javax.swing.JFrame {
                 .getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING));
 
         // Botones
-        btnRojo = new JButton("On/Off");
-        btnAmarillo = new JButton("On/Off");
-        btnVerde = new JButton("On/Off");
         btnDanarLed = new JButton("Dañar LED");
 
         // Semaforo 1 
@@ -399,37 +389,11 @@ public class Vista extends javax.swing.JFrame {
 
         // Botón dañar semáforo btnDanarLed
         ventana.add(btnDanarLed);
-        btnDanarLed.setBounds(60, 560, 150, 60);
+        btnDanarLed.setBounds(130, 510, 150, 60);
         btnDanarLed.setIcon(imgWarning);
         btnDanarLed.setFocusable(false);
         btnDanarLed.setContentAreaFilled(false);
         btnDanarLed.setBorder(null);
-
-        // Botón cambio de estado verde
-        ventana.add(btnVerde);
-        btnVerde.setBounds(260, 620, 100, 30);
-        btnVerde.setIcon(imgOff);
-        btnVerde.setFocusable(false);
-        btnVerde.setContentAreaFilled(false);
-        btnVerde.setBorder(null);
-
-        // Botón cambio de estado amarillo
-        ventana.add(btnAmarillo);
-        btnAmarillo.setBounds(260, 580, 100, 30);
-        btnAmarillo.setIcon(imgOff);
-        btnAmarillo.setIcon(imgOff);
-        btnAmarillo.setFocusable(false);
-        btnAmarillo.setContentAreaFilled(false);
-        btnAmarillo.setBorder(null);
-
-        // Botón cambio de estado rojo
-        ventana.add(btnRojo);
-        btnRojo.setBounds(260, 540, 100, 30);
-        btnRojo.setIcon(imgOff);
-        btnRojo.setIcon(imgOff);
-        btnRojo.setFocusable(false);
-        btnRojo.setContentAreaFilled(false);
-        btnRojo.setBorder(null);
 
         selectorSemaforo = new JComboBox();
         selectorSemaforo.addItem("Semaforo 1");
@@ -442,7 +406,7 @@ public class Vista extends javax.swing.JFrame {
         selectorSemaforo.addItem("Semaforo 8");
         selectorSemaforo.addItem("Semaforo Peatonal 1");
         selectorSemaforo.addItem("Semaforo Peatonal 2");
-        selectorSemaforo.setBounds(60, 500, 300, 30);
+        selectorSemaforo.setBounds(60, 470, 300, 30);
         ventana.add(selectorSemaforo);
 
         semaforos = new ArrayList<>();
@@ -450,6 +414,7 @@ public class Vista extends javax.swing.JFrame {
         semaforos.add(lblSemaforo2);
         semaforos.add(lblSemaforo3);
         semaforos.add(lblSemaforo4);
+        semaforos.add(lblSemaforo5);
         semaforos.add(lblSemaforo6);
         semaforos.add(lblSemaforo7);
         semaforos.add(lblSemaforo8);
@@ -477,18 +442,6 @@ public class Vista extends javax.swing.JFrame {
 
     public ArrayList<ArrayList<JLabel>> getSemaforosPeatonales() {
         return semaforosPeatonales;
-    }
-
-    public JButton getBtnRojo() {
-        return btnRojo;
-    }
-
-    public JButton getBtnAmarillo() {
-        return btnAmarillo;
-    }
-
-    public JButton getBtnVerde() {
-        return btnVerde;
     }
 
     public JButton getBtnDanarLed() {
