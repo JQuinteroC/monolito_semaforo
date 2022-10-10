@@ -93,7 +93,10 @@ public class Modelo implements Runnable {
             System.out.println(data.charAt(i));
 
             if (i == 0) {
-                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
+                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
+                                           Character.getNumericValue(data.charAt(i + 1)),
+                                           Character.getNumericValue(data.charAt(i + 2)),
+                                           Character.getNumericValue(data.charAt(i + 3)));
             } else if (i == 1) {
                 tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
             } else if (i == 2) {
@@ -115,7 +118,7 @@ public class Modelo implements Runnable {
     }
 
     private String calcularLedsEncendidos() {
-        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
+        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + ":" + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
     }
 
     private String identificarLedsXGp(ArrayList<Semaforo> semaforosGp) {
@@ -140,13 +143,18 @@ public class Modelo implements Runnable {
                 }
             }
         }
-        return cantLedsRojos + "" + cantLedsAmarillos + "" + cantLedsVerdes;
+        return cantLedsRojos + "-" + cantLedsAmarillos + "-" + cantLedsVerdes;
     }
 
-    public void procesarConfiguracion(String confString) {
+    public String procesarConfiguracion(String confString) {
         String[] conf = confString.split("-");
         int index = 0;
         int indexPeatonal = 0;
+        int cantLedsRojos = 0;
+        int cantLedsAmarillos = 0;
+        int cantLedsVerdes = 0;
+        String cantLedsCruce = "";
+
         for (int i = 0; i < conf.length; i++) {
             String confaux = conf[i];
             final Semaforo gprSemaforico[] = new Semaforo[2];
@@ -155,7 +163,9 @@ public class Modelo implements Runnable {
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(0), 0));
+                cantLedsRojos++;
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(1), 0));
+                cantLedsVerdes++;
 
                 gprSemaforico[0].setLeds(leds1);
                 indexPeatonal++;
@@ -163,13 +173,23 @@ public class Modelo implements Runnable {
                 gprSemaforico[0] = new Semaforo();
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
+                // Led rojo
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(0), 0));
+                cantLedsRojos++;
+                // Led amarillo
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(1), 0));
+                cantLedsAmarillos++;
+                // Led verde
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(2), 0));
+                cantLedsVerdes++;
 
                 gprSemaforico[0].setLeds(leds1);
                 index++;
             }
+            cantLedsCruce += cantLedsRojos + "-" + cantLedsAmarillos + "-" + cantLedsVerdes + "-";
+            cantLedsRojos = 0;
+            cantLedsAmarillos = 0;
+            cantLedsVerdes = 0;
 
             /// TODO AGREGAR LEDS 
             if (confaux.charAt(1) == '0') { // Semaforo peatonal
@@ -177,7 +197,11 @@ public class Modelo implements Runnable {
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(0), 0));
+                cantLedsRojos++;
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(1), 0));
+                cantLedsVerdes++;
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
 
                 gprSemaforico[1].setLeds(leds1);
                 indexPeatonal++;
@@ -186,15 +210,22 @@ public class Modelo implements Runnable {
 
                 ArrayList<Led> leds1 = new ArrayList<Led>();
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(0), 0));
+                cantLedsRojos++;
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(1), 0));
+                cantLedsAmarillos++;
                 leds1.add(new Led(getVentana().getSemaforos().get(index).get(2), 0));
+                cantLedsVerdes++;
 
                 gprSemaforico[1].setLeds(leds1);
                 index++;
             }
-
+            cantLedsCruce += cantLedsRojos + "-" + cantLedsAmarillos + "-" + cantLedsVerdes + "-";
+            cantLedsRojos = 0;
+            cantLedsAmarillos = 0;
+            cantLedsVerdes = 0;
             AgregarSemaforo(i, gprSemaforico);
         }
+        return cantLedsCruce;
     }
 
     public void AgregarSemaforo(int index, Semaforo[] gprSemaforico) {
@@ -244,7 +275,7 @@ public class Modelo implements Runnable {
             // recibir configuracion
             conf = datosEntrada.readUTF();
             System.out.println("Recibio conf");
-            procesarConfiguracion(conf);
+            datosSalida.writeUTF(procesarConfiguracion(conf));
         } catch (IOException e) {
             System.out.println("Error en la comunicacion de configuracion.");
             throw new RuntimeException(e);
