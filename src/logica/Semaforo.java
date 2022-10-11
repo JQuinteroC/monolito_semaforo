@@ -39,6 +39,8 @@ public class Semaforo {
     }
 
     public void setHilo(Thread hilo) {
+        if (this.hilo != null)
+            this.hilo.interrupt();
         this.hilo = hilo;
     }
 

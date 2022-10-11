@@ -165,7 +165,7 @@ public class Tarjeta {
                     // DO NOTHING
                 }
             } else {
-                semaforoActivo.getHilo().stop();
+                semaforoActivo.setHilo(new Thread());
             }
 
         }

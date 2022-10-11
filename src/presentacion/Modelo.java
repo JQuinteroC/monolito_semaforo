@@ -82,39 +82,40 @@ public class Modelo implements Runnable {
              String[] instruccion = a.split(":");
              tarjetaActiva = tarjetas.get(Integer.parseInt(instruccion[0]) - 1);
              tarjetaActiva.changeGrupo(0);
-             data = Integer.toBinaryString(Integer.parseInt(instruccion[1]));
+             data = instruccion[1];
+             while (data.length() < 8) {
+                 data = "0" + data;
+             }
+             System.out.println("Binary data: " + data);
+
+             for (int i = 0; i < data.length(); i++) {
+                 System.out.println(data.charAt(i));
+
+                 if (i == 0) {
+                     tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
+                             Character.getNumericValue(data.charAt(i + 1)),
+                             Character.getNumericValue(data.charAt(i + 2)),
+                             Character.getNumericValue(data.charAt(i + 3)));
+                 } else if (i == 1) {
+                     tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
+                 } else if (i == 2) {
+                     tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
+                 } else if (i == 3) {
+                     tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
+                 } else if (i == 4) {
+                     tarjetaActiva.changeGrupo(1);
+                     tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
+                 } else if (i == 5) {
+                     tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
+                 } else if (i == 6) {
+                     tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
+                 } else if (i == 7) {
+                     tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
+                 }
+             }
          }
-        while (data.length() < 8) {
-            data = "0" + data;
-        }
-        System.out.println("Binary data: " + data);
 
-        // todo cambiar estado de leds
-        for (int i = 0; i < data.length(); i++) {
-            System.out.println(data.charAt(i));
 
-            if (i == 0) {
-                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
-                                           Character.getNumericValue(data.charAt(i + 1)),
-                                           Character.getNumericValue(data.charAt(i + 2)),
-                                           Character.getNumericValue(data.charAt(i + 3)));
-            } else if (i == 1) {
-                tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
-            } else if (i == 2) {
-                tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
-            } else if (i == 3) {
-                tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
-            } else if (i == 4) {
-                tarjetaActiva.changeGrupo(1);
-                tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
-            } else if (i == 5) {
-                tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
-            } else if (i == 6) {
-                tarjetaActiva.cambioEstadoAmarillo(Character.getNumericValue(data.charAt(i)));
-            } else if (i == 7) {
-                tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
-            }
-        }
         return calcularLedsEncendidos();
     }
 
@@ -271,7 +272,6 @@ public class Modelo implements Runnable {
         while (lecturaActiva) {
             try {
                 // lee lo que envía el server
-                System.out.println("Esperando mensaje...");
                 // Se queda acá, hasta que el servidor envíe algo
                 data = datosEntrada.readUTF();
                 System.out.println("Info recibida: " + data);
@@ -284,7 +284,7 @@ public class Modelo implements Runnable {
                 }
 
             } catch (IOException ex) {
-                System.out.println("error en la comunicación");
+               // System.out.println("error en la comunicación");
             }
         }
 
