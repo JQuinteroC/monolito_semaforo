@@ -54,7 +54,7 @@ public class Server {
                     }
                     ledsInt[j] = Integer.parseInt(leds[i]);
                 }
-                datosSalida.writeUTF("1:10100100");
+                    datosSalida.writeUTF("1:10100100");
                 String ledsFuncionando = datosEntrada.readUTF();
                 datosSalida.writeUTF("1:10100100");
                 String ledsFuncionando3 = datosEntrada.readUTF();

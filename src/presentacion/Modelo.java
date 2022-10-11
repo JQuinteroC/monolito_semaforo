@@ -120,7 +120,11 @@ public class Modelo implements Runnable {
     }
 
     private String calcularLedsEncendidos() {
-        return identificarLedsXGp(tarjetaActiva.getGprSemaforico1()) + ":" + identificarLedsXGp(tarjetaActiva.getGprSemaforico2());
+        String totalLedsEncendidos = "";
+        for (Tarjeta tar : tarjetas) {
+            totalLedsEncendidos += identificarLedsXGp(tar.getGprSemaforico1()) + ":" + identificarLedsXGp(tar.getGprSemaforico2()) + "/";
+        }
+        return totalLedsEncendidos;
     }
 
     private String identificarLedsXGp(ArrayList<Semaforo> semaforosGp) {
@@ -227,6 +231,7 @@ public class Modelo implements Runnable {
             cantLedsVerdes = 0;
             AgregarSemaforo(i, gprSemaforico);
         }
+        System.out.println("Cantidad total leds: " + cantLedsCruce);
         return cantLedsCruce;
     }
 
