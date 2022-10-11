@@ -70,19 +70,20 @@ public class Modelo implements Runnable {
 
     public String procesarInformacion(String data) {
         // byte recibido tarjeta-|i|r|a|v|i|r|a|v|
-        String[] datos = data.split(":");
+        String[] datos = data.split("-");
 
-        tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
-        tarjetaActiva.changeGrupo(0);
-        //data = Integer.toBinaryString(Integer.parseInt(datos[1]));
-        data = datos[1];
+        // tarjetaActiva = tarjetas.get(Integer.parseInt(datos[0]));
+        // data = Integer.toBinaryString(datos[1]);
+        // data = datos[1];
         // String[] datos = data.split(":");
 
-        // for (int j = 0; j < datos.length; j++) {
-        //     String a = datos[j];
-        //     String[] instruccion = a.split("-");
-        //     tarjetaActiva = tarjetas.get(Integer.parseInt(instruccion[0]));
-        //     data = Integer.toBinaryString(Integer.parseInt(instruccion[1]));
+         for (int j = 0; j < datos.length; j++) {
+             String a = datos[j];
+             String[] instruccion = a.split(":");
+             tarjetaActiva = tarjetas.get(Integer.parseInt(instruccion[0]) - 1);
+             tarjetaActiva.changeGrupo(0);
+             data = Integer.toBinaryString(Integer.parseInt(instruccion[1]));
+         }
         while (data.length() < 8) {
             data = "0" + data;
         }
@@ -235,28 +236,6 @@ public class Modelo implements Runnable {
         tarjetas.get(index).setNewGrupo(gprSemaforico);
     }
 
-//    void comprobarEstadoBotones() {
-//        ArrayList<Led> leds = sistemaActivo.getLeds();
-//
-//        if (leds.get(0).getEstado() == 0) {
-//            ventana.getBtnRojo().setIcon(ventana.getImgOff());
-//        } else {
-//            ventana.getBtnRojo().setIcon(ventana.getImgOn());
-//        }
-//
-//        if (leds.get(1).getEstado() == 0) {
-//            ventana.getBtnAmarillo().setIcon(ventana.getImgOff());
-//        } else {
-//            ventana.getBtnAmarillo().setIcon(ventana.getImgOn());
-//        }
-//
-//        if (leds.get(2).getEstado() == 0) {
-//            ventana.getBtnVerde().setIcon(ventana.getImgOff());
-//        } else {
-//            ventana.getBtnVerde().setIcon(ventana.getImgOn());
-//        }
-//
-//    }
     public void conectar() throws IOException {
         try {
             // establecer conexion
@@ -274,7 +253,6 @@ public class Modelo implements Runnable {
             String conf = null;
             // recibir configuracion
             conf = datosEntrada.readUTF();
-            System.out.println("Recibio conf");
             datosSalida.writeUTF(procesarConfiguracion(conf));
         } catch (IOException e) {
             System.out.println("Error en la comunicacion de configuracion.");
@@ -288,10 +266,7 @@ public class Modelo implements Runnable {
     @Override
     public void run() {
         // Para almacenar lo que llegue del servidor
-        byte buffer[];
-        String conf;
         String data;
-        String binaryData;
 
         while (lecturaActiva) {
             try {
@@ -299,11 +274,13 @@ public class Modelo implements Runnable {
                 System.out.println("Esperando mensaje...");
                 // Se queda acá, hasta que el servidor envíe algo
                 data = datosEntrada.readUTF();
-                datosSalida.writeUTF(procesarInformacion(data));
+                System.out.println("Info recibida: " + data);
+                String infoProcesada = procesarInformacion(data);
+                datosSalida.writeUTF(infoProcesada);
 
                 if (data == "-1") {
                     lecturaActiva = false;
-                    break;
+                    //break;
                 }
 
             } catch (IOException ex) {

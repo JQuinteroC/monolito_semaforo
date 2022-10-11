@@ -77,7 +77,6 @@ public class Tarjeta {
     }
 
     public void intermitente(int accion, int primerEstado, int segundoEstado, int tercerEstado) {
-        System.out.println("Accion:" + accion);
 
         for (Iterator<Semaforo> iterator = gprActivo.iterator(); iterator.hasNext();) {
             Semaforo semaforoActivo = iterator.next();
@@ -92,11 +91,9 @@ public class Tarjeta {
                             Thread.sleep(250);
                             if (i == 0) {
                                 semaforoActivo.cambioEstadoRojo(1);
-                                System.out.println("Intermitencia Rojo: encendido");
                                 i = 1;
                             } else {
                                 semaforoActivo.cambioEstadoRojo(0);
-                                System.out.println("Intermitencia Rojo: apagado");
                                 i = 0;
                             }
 
@@ -117,11 +114,9 @@ public class Tarjeta {
                             Thread.sleep(250);
                             if (i == 0) {
                                 semaforoActivo.cambioEstadoAmarillo(1);
-                                System.out.println("Intermitencia Amarillo: encendido");
                                 i = 1;
                             } else {
                                 semaforoActivo.cambioEstadoAmarillo(0);
-                                System.out.println("Intermitencia Amarillo: apagado");
                                 i = 0;
                             }
 
@@ -142,11 +137,9 @@ public class Tarjeta {
                             Thread.sleep(250);
                             if (i == 0) {
                                 semaforoActivo.cambioEstadoVerde(1);
-                                System.out.println("Intermitencia Verde: encendido");
                                 i = 1;
                             } else {
                                 semaforoActivo.cambioEstadoVerde(0);
-                                System.out.println("Intermitencia Verde: apagado");
                                 i = 0;
                             }
 
@@ -159,33 +152,20 @@ public class Tarjeta {
 
             // Si es intermitente, definir que LED encender y apagar
             if (accion == 1) {
-                System.out.println("Intermitente");
                 if (primerEstado == 1) {
-
                     semaforoActivo.setHilo(new Thread(runnableRojo));
                     semaforoActivo.getHilo().start();
-
-                    System.out.println("Rojo - Hilo:" + semaforoActivo.getHilo().getId());
-
                 } else if (segundoEstado == 1) {
-
                     semaforoActivo.setHilo(new Thread(runnableAmarillo));
                     semaforoActivo.getHilo().start();
-                    System.out.println("Amarillo - Hilo:" + semaforoActivo.getHilo().getId());
-
                 } else if (tercerEstado == 1) {
                     semaforoActivo.setHilo(new Thread(runnableVerde));
                     semaforoActivo.getHilo().start();
-                    System.out.println("Verde - Hilo:" + semaforoActivo.getHilo().getId());
-
                 } else {
                     // DO NOTHING
                 }
-
             } else {
                 semaforoActivo.getHilo().stop();
-                System.out.println("No es intermitente - Hilo: " + semaforoActivo.getHilo().getId());
-
             }
 
         }

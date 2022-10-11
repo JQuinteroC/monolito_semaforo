@@ -56,7 +56,9 @@ public class Server {
                 }
                 datosSalida.writeUTF("1:10100100");
                 String ledsFuncionando = datosEntrada.readUTF();
-                System.out.println("Server recibe; " + ledsFuncionando);
+                datosSalida.writeUTF("1:10100100");
+                String ledsFuncionando3 = datosEntrada.readUTF();
+                System.out.println("Server recibe: " + ledsFuncionando);
                 // Deberia llergar 1-1-1:2-0-2
                 String ledsFuncionando2 = "1-1-1:1-1-1";
                 String ledsTarjeta[] = ledsFuncionando.split(":");
