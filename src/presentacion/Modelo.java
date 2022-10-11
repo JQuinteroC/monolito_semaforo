@@ -27,7 +27,6 @@ public class Modelo implements Runnable {
 
     private volatile boolean lecturaActiva;
     private Thread hiloLectura;
-
     public void iniciar() {
         // codigo de inicio de app
         getVentana().setSize(445, 630);
@@ -86,11 +85,7 @@ public class Modelo implements Runnable {
              while (data.length() < 8) {
                  data = "0" + data;
              }
-             System.out.println("Binary data: " + data);
-
              for (int i = 0; i < data.length(); i++) {
-                 System.out.println(data.charAt(i));
-
                  if (i == 0) {
                      tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
                              Character.getNumericValue(data.charAt(i + 1)),
@@ -104,7 +99,10 @@ public class Modelo implements Runnable {
                      tarjetaActiva.cambioEstadoVerde(Character.getNumericValue(data.charAt(i)));
                  } else if (i == 4) {
                      tarjetaActiva.changeGrupo(1);
-                     tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)), Character.getNumericValue(data.charAt(i + 1)), Character.getNumericValue(data.charAt(i + 2)), Character.getNumericValue(data.charAt(i + 3)));
+                     tarjetaActiva.intermitente(Character.getNumericValue(data.charAt(i)),
+                                                Character.getNumericValue(data.charAt(i + 1)),
+                                                Character.getNumericValue(data.charAt(i + 2)),
+                                                Character.getNumericValue(data.charAt(i + 3)));
                  } else if (i == 5) {
                      tarjetaActiva.cambioEstadoRojo(Character.getNumericValue(data.charAt(i)));
                  } else if (i == 6) {
@@ -197,17 +195,17 @@ public class Modelo implements Runnable {
             cantLedsAmarillos = 0;
             cantLedsVerdes = 0;
 
-            /// TODO AGREGAR LEDS 
             if (confaux.charAt(1) == '0') { // Semaforo peatonal
                 gprSemaforico[1] = new SemaforoPeatonal();
-
+                if(i == 2)
+                    System.out.println("Semaforo peatonal asdasd");
                 ArrayList<Led> leds1 = new ArrayList<Led>();
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(0), 0));
                 cantLedsRojos++;
                 leds1.add(new Led(getVentana().getSemaforosPeatonales().get(indexPeatonal).get(1), 0));
                 cantLedsVerdes++;
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
-                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));
+                /*leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(0), 0));
+                leds1.add(new Led(getVentana().getSemaforos().get(indexPeatonal).get(1), 0));*/
 
                 gprSemaforico[1].setLeds(leds1);
                 indexPeatonal++;
@@ -231,7 +229,6 @@ public class Modelo implements Runnable {
             cantLedsVerdes = 0;
             AgregarSemaforo(i, gprSemaforico);
         }
-        System.out.println("Cantidad total leds: " + cantLedsCruce);
         return cantLedsCruce;
     }
 
@@ -279,7 +276,6 @@ public class Modelo implements Runnable {
                 // lee lo que envía el server
                 // Se queda acá, hasta que el servidor envíe algo
                 data = datosEntrada.readUTF();
-                System.out.println("Info recibida: " + data);
                 String infoProcesada = procesarInformacion(data);
                 datosSalida.writeUTF(infoProcesada);
 
