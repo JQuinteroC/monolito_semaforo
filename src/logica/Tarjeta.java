@@ -98,7 +98,7 @@ public class Tarjeta {
                             }
 
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
@@ -121,7 +121,7 @@ public class Tarjeta {
                             }
 
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
@@ -144,7 +144,7 @@ public class Tarjeta {
                             }
 
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.currentThread().interrupt();
                         }
                     }
                 }
@@ -165,7 +165,8 @@ public class Tarjeta {
                     // DO NOTHING
                 }
             } else {
-                semaforoActivo.setHilo(new Thread());
+                semaforoActivo.getHilo().interrupt();
+                //semaforoActivo.setHilo(new Thread());
             }
 
         }
